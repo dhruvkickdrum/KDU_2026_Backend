@@ -1,19 +1,30 @@
 package com.dhruv.warehouse;
 
 import java.util.List;
+import java.util.Optional;
 
-public class Inventory {
-    private String name;
-    private List<List<String>> palletItemIds;
+public class Inventory implements ItemInfoProvider {
+    private final String name;
+    private final List<List<String>> palletItemIds;
 
     public Inventory(String name, List<List<String>> palletItemIds) {
         this.name = name;
         this.palletItemIds = palletItemIds;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public List<List<String>> getPalletItemIds() {
         return palletItemIds;
     }
+
+    @Override
+    public String getInfo() {
+        return "FOUND: Inventory = " + name;
+    }
+
 
     public static Inventory findItem(String id) {
         if(id.equals("A100")) {
@@ -24,4 +35,5 @@ public class Inventory {
         }
         return null;
     }
+
 }

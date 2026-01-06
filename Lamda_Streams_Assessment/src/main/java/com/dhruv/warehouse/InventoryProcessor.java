@@ -6,10 +6,11 @@ import java.util.stream.Collectors;
 
 public class InventoryProcessor {
 
-//    public static Object safeLookup(String id) {
-//        return Optional.ofNullable(Inventory.findItem(id))
-//                .orElseGet(ItemPlaceholder::new);
-//    }
+    public static ItemInfoProvider  safeLookup(String id) {
+        return Optional.ofNullable(Inventory.findItem(id))
+                .<ItemInfoProvider>map(inv -> inv)
+                .orElseGet(ItemPlaceholder::new);
+    }
 
     public static Set<String> extractUniqueIds(Inventory inventory) {
         return inventory.getPalletItemIds()
@@ -20,10 +21,3 @@ public class InventoryProcessor {
 
 
 }
-
-//public static Set<String> extractUniqueIds(Inventory inventory) {
-//    return inventory.getPalletItemIds()
-//            .stream()
-//            .flatMap(pallet -> pallet.stream())
-//            .collect(Collectors.toSet());
-//}

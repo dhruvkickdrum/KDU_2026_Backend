@@ -1,6 +1,6 @@
 package com.dhruv.warehouse;
 
-public class ItemPlaceholder {
+public class ItemPlaceholder implements ItemInfoProvider {
     public ItemPlaceholder() {
         System.out.println("Alert: Creating expensive placeholder object!");
     }
