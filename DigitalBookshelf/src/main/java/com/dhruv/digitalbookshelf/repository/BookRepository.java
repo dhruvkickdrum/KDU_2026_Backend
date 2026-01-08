@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository {
@@ -32,5 +33,20 @@ public class BookRepository {
 
     public boolean existById(Long id) {
         return store.containsKey(id);
+    }
+
+    public List<Book> findByAuthorContainingIgnoreCase(String author) {
+        if (author == null || author.isBlank()) {
+            return findAll();
+        }
+
+        String search = author.toLowerCase();
+
+        return store.values()
+                .stream()
+                .filter(book ->
+                        book.getAuthor() != null &&
+                                book.getAuthor().toLowerCase().contains(search))
+                .collect(Collectors.toList());
     }
 }
